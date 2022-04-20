@@ -6,7 +6,7 @@ public class PlayerMove : MonoBehaviour
     Rigidbody2D rb;
     public float power = 1f;
     public Camera cam;
-    Vector3 mousePos;
+    Vector3 getMouseEvents;
     LineRenderer lr;
     Vector3 endPoint;
     Vector3 startPoint;
@@ -22,29 +22,30 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 mouseDir = mousePos - gameObject.transform.position;
-        mouseDir.z = 0;
-        mouseDir = mouseDir.normalized;
+        getMouseEvents = cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mouseDirection = getMouseEvents - gameObject.transform.position;
+        mouseDirection.z = 0;
+        mouseDirection = mouseDirection.normalized;
 
         if (Input.GetMouseButtonDown(0))
         {
             lr.enabled = true;
+            rb.velocity = Vector2.zero;
         }
 
         if (Input.GetMouseButton(0))
         {
-            Time.timeScale = 0.5f;
+            Time.timeScale = 0.2f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
-
             startPoint = gameObject.transform.position;
             startPoint.z = 0;
             lr.SetPosition(0, startPoint);
-            endPoint = mousePos;
+            endPoint = getMouseEvents;
             endPoint.z = 0;
             float dist = Mathf.Clamp(Vector2.Distance(startPoint, endPoint), 0, maxDistance);
-            endPoint = startPoint + (mouseDir * dist);
+            endPoint = startPoint + (mouseDirection * dist);
             lr.SetPosition(1, endPoint);
+            
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -57,7 +58,7 @@ public class PlayerMove : MonoBehaviour
             float lineLength = Vector3.Distance(zero, one);
             lineLength *= 2f;
 
-            rb.AddForce(mouseDir * lineLength, ForceMode2D.Impulse);
+            rb.AddForce(mouseDirection * lineLength, ForceMode2D.Impulse);
             lr.enabled = false;
         }
 
