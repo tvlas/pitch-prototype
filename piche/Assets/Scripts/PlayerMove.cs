@@ -21,8 +21,14 @@ public class PlayerMove : MonoBehaviour
         lr.positionCount = 2;
     }
 
+    public Vector3 GetStartPoint()
+    {
+        return endPoint;
+    }
+
     void Update()
     {
+        GetStartPoint();
         getMouseEvents = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector3 mouseDirection = getMouseEvents - gameObject.transform.position;
         mouseDirection.z = 0;
@@ -47,6 +53,7 @@ public class PlayerMove : MonoBehaviour
             endPoint = startPoint + (mouseDirection * dist);
             lr.SetPosition(1, endPoint);
             
+            
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -61,6 +68,7 @@ public class PlayerMove : MonoBehaviour
 
             rb.AddForce(mouseDirection * lineLength, ForceMode2D.Impulse);
             lr.enabled = false;
+            startPoint = Vector3.zero;
         }
 
     }

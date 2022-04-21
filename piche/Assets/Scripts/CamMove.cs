@@ -8,19 +8,33 @@ public class CamMove : MonoBehaviour
     public Vector3 offset;
     public float smoothing;
 
+    public PlayerMove pm;
+
+    private void Start()
+    {
+        pm = GameObject.Find("Player").GetComponent<PlayerMove>();
+    }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0)){
-            offset[0] = 1;
-        }
-        if (Input.GetMouseButtonUp(0)){
-            offset[0] = 0;
-        }
+        Debug.Log(pm.GetStartPoint());
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
+        if (Input.GetMouseButton(0))
+        {
+            if(pm.GetStartPoint() != Vector3.zero)
+            {
+                offset = pm.GetStartPoint().normalized;
+                transform.position = offset;
+            }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            offset = Vector3.zero;
+            
+        }
         transform.position = Vector3.Lerp(transform.position, player.position + offset, smoothing);
     }
 
