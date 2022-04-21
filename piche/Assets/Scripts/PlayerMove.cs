@@ -14,6 +14,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
         cam = Camera.main;
         rb = GetComponent<Rigidbody2D>();
         lr = GetComponent<LineRenderer>();
@@ -35,7 +36,7 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            Time.timeScale = 0.2f;
+            Time.timeScale = 0.3f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
             startPoint = gameObject.transform.position;
             startPoint.z = 0;
