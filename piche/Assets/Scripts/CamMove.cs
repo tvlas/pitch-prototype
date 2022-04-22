@@ -10,19 +10,19 @@ public class CamMove : MonoBehaviour
 
     public PlayerMove pm;
 
-    private void Start()
+    /*private void Start()
     {
         pm = GameObject.Find("Player").GetComponent<PlayerMove>();
     }
-
-    private void Update()
+    */
+    /*private void Update()
     {
         Debug.Log(pm.GetStartPoint());
     }
-
+    */
     private void LateUpdate()
     {
-        if (Input.GetMouseButton(0))
+        /*if (Input.GetMouseButton(0))
         {
             if(pm.GetStartPoint() != Vector3.zero)
             {
@@ -35,6 +35,7 @@ public class CamMove : MonoBehaviour
             offset = Vector3.zero;
             
         }
+        */
         transform.position = Vector3.Lerp(transform.position, player.position + offset, smoothing);
     }
 

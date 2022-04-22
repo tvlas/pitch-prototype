@@ -21,14 +21,14 @@ public class PlayerMove : MonoBehaviour
         lr.positionCount = 2;
     }
 
-    public Vector3 GetStartPoint()
+    /*public Vector3 GetStartPoint()
     {
         return endPoint;
     }
-
+    */
     void Update()
     {
-        GetStartPoint();
+        //GetStartPoint();
         getMouseEvents = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector3 mouseDirection = getMouseEvents - gameObject.transform.position;
         mouseDirection.z = 0;
